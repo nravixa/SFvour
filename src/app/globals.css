@@ -1,0 +1,1373 @@
+@import "tailwindcss";
+@import "lenis/dist/lenis.css";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-serif: var(--font-serif), "Cormorant Garamond", Georgia, serif;
+  --font-display: var(--font-display), "Cinzel", "Cormorant Garamond", Georgia, serif;
+  --font-sans: var(--font-sans), "Montserrat", -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+@layer base {
+  :root,
+  html.light,
+  html:not(.dark) {
+    --gold-primary: #8c600a;
+    --gold-bright: #b8860b;
+    --gold-glow: #e8b86d;
+    --gold-dark: #634305;
+    --bg-page: #f8f6f0;
+    --bg-surface: #ffffff;
+    --bg-subtle: #ede7dc;
+    --text-main: #14100e;
+    --text-muted: #4a3f35;
+    --card-bg: #ffffff;
+    --card-border: rgba(0, 0, 0, 0.08);
+    --card-shadow: 0 12px 35px -8px rgba(0, 0, 0, 0.07), 0 2px 6px rgba(0, 0, 0, 0.03);
+    color-scheme: light;
+  }
+
+  /* Only h1 retains the haute-couture display serif from Pegasus Clinic */
+  h1 {
+    font-family: var(--font-serif);
+    letter-spacing: -0.015em;
+  }
+
+  /* All remaining headings and typography use the clean geometric sans-serif */
+  h2, h3, h4, h5, h6 {
+    font-family: var(--font-sans) !important;
+    letter-spacing: -0.01em;
+  }
+
+  body {
+    font-family: var(--font-sans);
+  }
+
+  .font-display {
+    font-family: var(--font-display);
+  }
+
+  html.dark {
+    --gold-primary: #c5a059;
+    --gold-bright: #d4af37;
+    --gold-glow: #e8b86d;
+    --gold-dark: #aa8021;
+    --bg-page: #0b0908;
+    --bg-surface: #14100e;
+    --bg-subtle: #1c1714;
+    --text-main: #f5f2eb;
+    --text-muted: #baa995;
+    --card-bg: rgba(20, 16, 14, 0.85);
+    --card-border: rgba(255, 255, 255, 0.08);
+    --card-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.7);
+    color-scheme: dark;
+  }
+
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+
+  .lenis.lenis-scrolling iframe {
+    pointer-events: none;
+  }
+
+  html.light body,
+  html:not(.dark) body {
+    background-color: var(--bg-page);
+    color: var(--text-main);
+  }
+
+  html.dark body {
+    background-color: var(--bg-page);
+    color: var(--text-main);
+  }
+
+  body {
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    overflow-x: hidden;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+html.light ::-webkit-scrollbar-track {
+  background: #f4efe6;
+}
+html.light ::-webkit-scrollbar-thumb {
+  background: #d6cbba;
+  border-radius: 9999px;
+  border: 2px solid #f4efe6;
+}
+html.light ::-webkit-scrollbar-thumb:hover {
+  background: #b8860b;
+}
+
+html.dark ::-webkit-scrollbar-track {
+  background: #0d0b0a;
+}
+html.dark ::-webkit-scrollbar-thumb {
+  background: #342d25;
+  border-radius: 9999px;
+  border: 2px solid #0d0b0a;
+}
+html.dark ::-webkit-scrollbar-thumb:hover {
+  background: #d4af37;
+}
+
+/* ============================================================
+   THEME STYLING: BRIGHT MODE (DEFAULT) vs DARK MODE
+   ============================================================ */
+
+/* 1. Glass Card & Surfaces */
+.glass-card {
+  opacity: 1;
+}
+
+html.light .glass-card {
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(197, 160, 89, 0.28);
+  box-shadow: 0 10px 30px rgba(184, 134, 11, 0.07), 0 2px 6px rgba(0, 0, 0, 0.03);
+}
+
+html.light .glass-card:hover {
+  border-color: rgba(184, 134, 11, 0.55);
+  box-shadow: 0 16px 36px rgba(184, 134, 11, 0.14);
+}
+
+html.dark .glass-card {
+  background: rgba(20, 17, 15, 0.7);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+html.dark .glass-card:hover {
+  border-color: rgba(212, 175, 55, 0.4);
+  box-shadow: 0 15px 35px -5px rgba(212, 175, 55, 0.15);
+}
+
+/* 2. Section Backgrounds in Bright Mode */
+html.light #hero,
+html.light #pillars,
+html.light #services,
+html.light #ambience,
+html.light #booking,
+html.light #products,
+html.light #reviews,
+html.light #location,
+html.light #faqs {
+  background-color: transparent !important;
+}
+
+html.light main {
+  background-color: #faf7f2 !important;
+  color: #1e1713 !important;
+}
+
+html.light footer {
+  background-color: #f3ede2 !important;
+  border-color: rgba(197, 160, 89, 0.3) !important;
+  color: #5c5042 !important;
+}
+
+/* 3. Typography Overrides in Bright Mode */
+html.light h1:not(#hero *):not(.image-card *):not(.image-overlay-card *),
+html.light h2:not(#hero *):not(.image-card *):not(.image-overlay-card *),
+html.light h3:not(#hero *):not(.image-card *):not(.image-overlay-card *):not(.luxury-credential *),
+html.light h4:not(#hero *):not(.image-card *):not(.image-overlay-card *) {
+  color: #14100e !important;
+}
+
+/* FAQ Accordion high-contrast rules (guaranteed 100% visible against white cards) */
+html.light #faqs .faq-question {
+  color: #14100e !important;
+}
+html.light #faqs .faq-answer {
+  color: #4a3f35 !important;
+}
+html.dark #faqs .faq-question {
+  color: #fbf8f3 !important;
+}
+html.dark #faqs .faq-answer {
+  color: #c5b8a6 !important;
+}
+
+/* Floating Quick-Action Dock on right edge (always crisp white icons with luminous hover glow) */
+.floating-dock-btn {
+  color: #ffffff !important;
+}
+.floating-dock-btn svg {
+  color: #ffffff !important;
+  stroke: #ffffff !important;
+}
+.floating-dock-btn.btn-wa:hover svg {
+  color: #25d366 !important;
+  stroke: #25d366 !important;
+}
+.floating-dock-btn.btn-ig:hover svg {
+  color: #e1306c !important;
+  stroke: #e1306c !important;
+}
+.floating-dock-btn.btn-phone:hover svg,
+.floating-dock-btn.btn-map:hover svg,
+.floating-dock-btn.btn-top:hover svg {
+  color: #d4af37 !important;
+  stroke: #d4af37 !important;
+}
+
+html.light .text-\[\#f3db9d\]:not(.luxury-credential *):not(.image-card *):not(.image-overlay-card *):not(.image-overlay-badge *):not(.image-overlay-badge):not(.service-focus-badge *):not(.service-focus-badge):not(#hero *):not(.floating-dock-btn *) {
+  color: #704808 !important;
+  font-weight: 700;
+}
+html.light .text-\[\#f7e1b5\]:not(.luxury-credential *):not(.image-card *):not(.image-overlay-card *):not(.image-overlay-badge *):not(.image-overlay-badge):not(.service-focus-badge *):not(.service-focus-badge):not(#hero *):not(.floating-dock-btn *) {
+  color: #704808 !important;
+  font-weight: 600;
+}
+html.light .text-\[\#d4af37\]:not(.luxury-credential *):not(.image-card *):not(.image-overlay-card *):not(.image-overlay-badge *):not(.image-overlay-badge):not(.service-focus-badge *):not(.service-focus-badge):not(#hero *):not(.floating-dock-btn *),
+html.light .text-\[\#c5a059\]:not(.luxury-credential *):not(.image-card *):not(.image-overlay-card *):not(.image-overlay-badge *):not(.image-overlay-badge):not(.service-focus-badge *):not(.service-focus-badge):not(#hero *):not(.floating-dock-btn *) {
+  color: #8c600a !important;
+}
+
+/* Service Card Overlaid Focus Badges - Guaranteed High Contrast & Legibility */
+.service-focus-badge,
+html.light .service-focus-badge,
+html.dark .service-focus-badge {
+  background-color: rgba(10, 8, 7, 0.94) !important;
+  border: 1px solid rgba(212, 175, 55, 0.6) !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.7) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+}
+
+.service-focus-badge .focus-label,
+html.light .service-focus-badge .focus-label,
+html.dark .service-focus-badge .focus-label {
+  color: #f3db9d !important;
+  -webkit-text-fill-color: #f3db9d !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.05em !important;
+}
+
+.service-focus-badge .focus-text,
+html.light .service-focus-badge .focus-text,
+html.dark .service-focus-badge .focus-text {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  font-weight: 600 !important;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7) !important;
+}
+
+/* Section Header Badges in Bright Mode */
+html.light .section-badge,
+html.light .bg-\[\#d4af37\]\/10,
+html.light .bg-\[\#d4af37\]\/15 {
+  background-color: #ede7dc !important;
+  border-color: rgba(184, 134, 11, 0.4) !important;
+}
+html.light .section-badge *,
+html.light .bg-\[\#d4af37\]\/10 *,
+html.light .bg-\[\#d4af37\]\/15 * {
+  color: #704808 !important;
+  font-weight: 700 !important;
+}
+
+/* Overlaid Text & Badges on dark image cards (Ambience Gallery, Showcase Card, Service Overlays) */
+.image-card h3,
+.image-card p,
+.image-card span,
+.image-overlay-card h3,
+.image-overlay-card p,
+.image-overlay-card span,
+.image-overlay-badge,
+.image-overlay-badge span,
+.image-overlay-badge p {
+  color: #ffffff !important;
+  -webkit-text-fill-color: initial !important;
+}
+
+.image-overlay-badge,
+html.light .image-overlay-badge,
+html.dark .image-overlay-badge {
+  background-color: rgba(12, 10, 9, 0.88) !important;
+  border: 1px solid rgba(212, 175, 55, 0.45) !important;
+}
+
+.image-overlay-badge span,
+.image-overlay-badge p,
+html.light .image-overlay-badge span,
+html.light .image-overlay-badge p,
+html.dark .image-overlay-badge span,
+html.dark .image-overlay-badge p {
+  color: #f7e1b5 !important;
+}
+
+html.light .luxury-credential {
+  background: linear-gradient(135deg, #1c1713 0%, #120f0d 50%, #0a0807 100%) !important;
+  color: #f5f2eb !important;
+}
+html.light .luxury-credential * {
+  color-scheme: dark !important;
+}
+html.light .luxury-credential h3 {
+  color: transparent !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
+html.light .text-\[\#baa995\]:not(.luxury-credential *):not(.image-card *):not(.image-overlay-card *):not(.image-overlay-badge *):not(.image-overlay-badge):not(#hero *):not(.floating-dock-btn *),
+html.light .text-\[\#c7bcab\]:not(.luxury-credential *):not(.image-card *):not(.image-overlay-card *):not(.image-overlay-badge *):not(.image-overlay-badge):not(#hero *):not(.floating-dock-btn *),
+html.light .text-\[\#c5b8a6\]:not(.luxury-credential *):not(.image-card *):not(.image-overlay-card *):not(.image-overlay-badge *):not(.image-overlay-badge):not(#hero *):not(.floating-dock-btn *),
+html.light .text-\[\#d0c6b7\]:not(.luxury-credential *):not(.image-card *):not(.image-overlay-card *):not(.image-overlay-badge *):not(.image-overlay-badge):not(#hero *):not(.floating-dock-btn *),
+html.light .text-\[\#cfc3b0\]:not(.luxury-credential *):not(.image-card *):not(.image-overlay-card *):not(.image-overlay-badge *):not(.image-overlay-badge):not(#hero *):not(.floating-dock-btn *),
+html.light .text-\[\#dcd1be\]:not(.luxury-credential *):not(.image-card *):not(.image-overlay-card *):not(.image-overlay-badge *):not(.image-overlay-badge):not(#hero *):not(.floating-dock-btn *),
+html.light .text-\[\#a89d8f\]:not(.luxury-credential *):not(.image-card *):not(.image-overlay-card *):not(.image-overlay-badge *):not(.image-overlay-badge):not(#hero *):not(.floating-dock-btn *),
+html.light .text-\[\#9d9284\]:not(.luxury-credential *):not(.image-card *):not(.image-overlay-card *):not(.image-overlay-badge *):not(.image-overlay-badge):not(#hero *):not(.floating-dock-btn *) {
+  color: #4a3f35 !important;
+}
+
+/* Hero Section Smooth Gradient Blend into Next Section */
+html.light #hero .hero-bottom-gradient {
+  background: linear-gradient(to top, #f8f6f0 0%, rgba(248, 246, 240, 0.96) 25%, rgba(248, 246, 240, 0.75) 55%, rgba(248, 246, 240, 0.25) 80%, transparent 100%) !important;
+}
+
+html.dark #hero .hero-bottom-gradient {
+  background: linear-gradient(to top, #0e0c0a 0%, rgba(14, 12, 10, 0.96) 25%, rgba(14, 12, 10, 0.75) 55%, rgba(14, 12, 10, 0.25) 80%, transparent 100%) !important;
+}
+
+/* Full-bleed Hero Section: Architectural Image & True Glassmorphism */
+#hero h1 {
+  color: #ffffff !important;
+}
+#hero p {
+  color: #e8dfd3 !important;
+}
+#hero .gold-gradient-text {
+  background: linear-gradient(135deg, #fff7ea 0%, #f3db9d 35%, #d4af37 75%, #aa8021 100%) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+#hero .glass-panel {
+  background: rgba(12, 10, 9, 0.45) !important;
+  backdrop-filter: blur(28px) !important;
+  -webkit-backdrop-filter: blur(28px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.55) !important;
+}
+#hero .glass-panel .text-white {
+  color: #ffffff !important;
+}
+#hero .glass-panel .text-\[\#f7e1b5\] {
+  color: #f7e1b5 !important;
+}
+#hero .glass-panel .text-\[\#baa995\] {
+  color: #baa995 !important;
+}
+#hero .glass-panel .text-\[\#d4af37\] {
+  color: #d4af37 !important;
+}
+
+html.light .text-\[\#8e8272\],
+html.light .text-\[\#8a7e72\],
+html.light .text-\[\#a3947c\] {
+  color: #7d6f5f !important;
+}
+
+.gold-gradient-text {
+  display: inline-block;
+  padding-right: 0.22em;
+  padding-left: 0.02em;
+  margin-right: -0.1em;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+html.light .gold-gradient-text {
+  background: linear-gradient(135deg, #1c1511 0%, #856113 40%, #b8860b 80%, #684a0c 100%) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
+html.dark .gold-gradient-text {
+  background: linear-gradient(135deg, #fff7ea 0%, #f3db9d 35%, #d4af37 75%, #aa8021 100%) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
+/* Category pills in Services */
+html.light #services button:not(.scale-105) {
+  background-color: #ede7dc !important;
+  border-color: rgba(197, 160, 89, 0.35) !important;
+  color: #3e3328 !important;
+  font-weight: 600;
+}
+html.light #services button:not(.scale-105):hover {
+  background-color: #e2dbce !important;
+  color: #1c1511 !important;
+}
+
+/* Service cards in Bright Mode */
+html.light #services .glass-card {
+  background: #ffffff !important;
+  border-color: rgba(197, 160, 89, 0.3) !important;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.06) !important;
+}
+html.light #services .glass-card h3 {
+  color: #1c1511 !important;
+}
+html.light #services .glass-card .text-\[\#d4af37\] {
+  color: #9c6f14 !important;
+}
+html.light #services .glass-card .text-\[\#a89d8f\] {
+  color: #52473c !important;
+}
+html.light #services .glass-card .text-\[\#c9bfae\] {
+  color: #3e3328 !important;
+}
+
+/* FAQ Action Button */
+html.light .faq-wa-btn {
+  background-color: #1c1511 !important;
+  border-color: #d4af37 !important;
+  color: #f7e1b5 !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12) !important;
+}
+html.light .faq-wa-btn:hover {
+  background-color: #2b211a !important;
+  border-color: #f3db9d !important;
+}
+html.light .faq-wa-btn span {
+  color: #f7e1b5 !important;
+  font-weight: 700 !important;
+}
+
+/* 4. Inputs & Forms in Bright Mode */
+html.light input,
+html.light textarea,
+html.light select {
+  background-color: #ffffff !important;
+  border-color: rgba(197, 160, 89, 0.45) !important;
+  color: #1c1511 !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+html.light input::placeholder,
+html.light textarea::placeholder {
+  color: #786b5e !important;
+}
+
+html.light select option {
+  background-color: #ffffff !important;
+  color: #1c1511 !important;
+}
+
+/* 5. Navbar Container: Completely Transparent (No background, No border, No background color) */
+header {
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+}
+
+html.light header,
+html.dark header {
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+}
+
+html.light header .nav-track {
+  background-color: #f1ede6 !important;
+  border-color: rgba(0, 0, 0, 0.05) !important;
+}
+
+html.light header nav a:not(.nav-active) {
+  color: #4a3f35 !important;
+}
+
+html.light header nav a:not(.nav-active):hover {
+  color: #110e0c !important;
+  background-color: rgba(0, 0, 0, 0.05) !important;
+}
+
+html.light header nav a.nav-active,
+html.light header nav .nav-active {
+  background-color: #161210 !important;
+  color: #ffffff !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.22) !important;
+}
+
+html.dark header nav a.nav-active,
+html.dark header nav .nav-active {
+  background-color: #d4af37 !important;
+  color: #0c0a09 !important;
+  box-shadow: 0 2px 10px rgba(212, 175, 55, 0.35) !important;
+}
+
+html.light .border-white\/10,
+html.light .border-white\/15,
+html.light .border-white\/5 {
+  border-color: rgba(197, 160, 89, 0.22) !important;
+}
+
+html.light .bg-white\/5 {
+  background-color: rgba(235, 227, 215, 0.5) !important;
+}
+
+html.light .bg-white\/10 {
+  background-color: rgba(230, 221, 207, 0.8) !important;
+}
+
+
+/* Footer Brand Medallion - Ultra-high contrast & luxury presence in both Bright & Dark modes */
+.footer-brand-medallion {
+  background: #14100e !important;
+  color: #f3db9d !important;
+  border: 1.5px solid rgba(212, 175, 55, 0.55) !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18) !important;
+}
+.footer-brand-medallion .footer-brand-monogram,
+.footer-brand-medallion * {
+  color: #f3db9d !important;
+  font-family: var(--font-playfair), Georgia, serif !important;
+  font-weight: 800 !important;
+  font-size: 1.05rem !important;
+  letter-spacing: 0.04em !important;
+}
+
+html.dark .footer-brand-medallion {
+  background: linear-gradient(135deg, #d4af37 0%, #f3db9d 50%, #aa8021 100%) !important;
+  color: #14100e !important;
+  border: 1.5px solid rgba(212, 175, 55, 0.75) !important;
+  box-shadow: 0 4px 18px rgba(212, 175, 55, 0.4) !important;
+}
+html.dark .footer-brand-medallion .footer-brand-monogram,
+html.dark .footer-brand-medallion * {
+  color: #14100e !important;
+  font-family: var(--font-playfair), Georgia, serif !important;
+  font-weight: 800 !important;
+  font-size: 1.05rem !important;
+  letter-spacing: 0.04em !important;
+}
+
+/* 6. Bottom Information Bar in Bright Mode */
+html.light .bottom-info-bar {
+  background-color: rgba(250, 246, 238, 0.95) !important;
+  border-top-color: rgba(197, 160, 89, 0.35) !important;
+  box-shadow: 0 -8px 25px rgba(0, 0, 0, 0.05) !important;
+}
+
+html.light .bottom-info-bar .text-\[\#f5ecd8\] {
+  color: #1e1713 !important;
+}
+
+html.light .bottom-info-bar .text-\[\#b5a995\] {
+  color: #635545 !important;
+}
+
+html.light .bottom-info-bar .text-\[\#c5a059\] {
+  color: #8c6a1e !important;
+}
+
+html.light .bottom-info-bar a:hover,
+html.light .bottom-info-bar a:hover span {
+  color: #a87922 !important;
+}
+
+/* 7. Mobile Bottom Bar in Bright Mode */
+html.light .mobile-nav-bar {
+  background-color: rgba(253, 251, 247, 0.96) !important;
+  border-top-color: rgba(197, 160, 89, 0.3) !important;
+}
+
+/* 3D Depth Card perspective */
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+/* ============================================================
+   CINEMA SILENT FILM FOOTER LANDSCAPE ANIMATION ENGINE
+   ============================================================ */
+
+/* 1. Flying Cranes gliding majestically across the entire widescreen canvas */
+@keyframes cinemaCraneFlight {
+  0% {
+    transform: translate3d(-120px, 15px, 0) scale(0.85);
+    opacity: 0;
+  }
+  4% {
+    opacity: 0.9;
+  }
+  30% {
+    transform: translate3d(380px, -12px, 0) scale(0.95);
+  }
+  60% {
+    transform: translate3d(850px, 18px, 0) scale(1);
+  }
+  94% {
+    opacity: 0.9;
+  }
+  100% {
+    transform: translate3d(1560px, -25px, 0) scale(0.9);
+    opacity: 0;
+  }
+}
+
+.animate-cinema-crane-lead {
+  animation: cinemaCraneFlight 24s cubic-bezier(0.35, 0.7, 0.45, 1) infinite;
+}
+
+.animate-cinema-crane-follower-1 {
+  animation: cinemaCraneFlight 24s cubic-bezier(0.35, 0.7, 0.45, 1) 1.2s infinite;
+}
+
+.animate-cinema-crane-follower-2 {
+  animation: cinemaCraneFlight 24s cubic-bezier(0.35, 0.7, 0.45, 1) 2.4s infinite;
+}
+
+.animate-cinema-crane-delayed {
+  animation: cinemaCraneFlight 28s cubic-bezier(0.35, 0.7, 0.45, 1) 11s infinite;
+}
+
+/* Wing flapping with natural aerodynamic cycle */
+@keyframes cinemaWingFlap {
+  0%, 100% {
+    transform: scaleY(1) rotate(0deg);
+  }
+  35% {
+    transform: scaleY(-0.85) rotate(-3deg);
+  }
+  65% {
+    transform: scaleY(0.7) rotate(2deg);
+  }
+}
+
+.animate-wing-flap {
+  transform-origin: 50% 55%;
+  animation: cinemaWingFlap 0.85s ease-in-out infinite;
+}
+
+/* 2. Mountain Mist Drift across the peaks */
+@keyframes cinemaMistDrift {
+  0% {
+    transform: translate3d(-80px, 0, 0);
+    opacity: 0.25;
+  }
+  50% {
+    transform: translate3d(60px, -4px, 0);
+    opacity: 0.45;
+  }
+  100% {
+    transform: translate3d(180px, 0, 0);
+    opacity: 0.25;
+  }
+}
+
+.animate-cinema-mist {
+  animation: cinemaMistDrift 28s ease-in-out infinite alternate;
+}
+
+/* 3. Flowing River Current Dashes */
+@keyframes cinemaStreamFlow {
+  0% {
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dashoffset: -120;
+  }
+}
+
+.animate-stream-flow {
+  animation: cinemaStreamFlow 8s linear infinite;
+}
+
+.animate-stream-flow-fast {
+  animation: cinemaStreamFlow 5s linear infinite;
+}
+
+/* 4. Natural Sampan Boat Drifting & Surging with Oar Strokes */
+@keyframes cinemaBoatDrift {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  20% {
+    transform: translate3d(14px, -3px, 0) rotate(-1.8deg);
+  }
+  45% {
+    transform: translate3d(26px, -1px, 0) rotate(0.8deg);
+  }
+  70% {
+    transform: translate3d(18px, 3px, 0) rotate(1.4deg);
+  }
+  88% {
+    transform: translate3d(6px, 1px, 0) rotate(-0.5deg);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+}
+
+.animate-cinema-boat {
+  animation: cinemaBoatDrift 8s ease-in-out infinite;
+}
+
+/* Boatman Oar Rowing Rhythm */
+@keyframes cinemaOarRowing {
+  0% {
+    transform: rotate(-14deg);
+  }
+  25% {
+    transform: rotate(8deg);
+  }
+  45% {
+    transform: rotate(26deg);
+  }
+  65% {
+    transform: rotate(12deg);
+  }
+  85% {
+    transform: rotate(-8deg);
+  }
+  100% {
+    transform: rotate(-14deg);
+  }
+}
+
+.animate-cinema-oar {
+  transform-origin: 9px 8px;
+  animation: cinemaOarRowing 4s ease-in-out infinite;
+}
+
+/* 5. Spotted Deer Cinematic Living Story Cycle */
+@keyframes cinemaDeerStory {
+  0%, 15% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  20%, 35% {
+    transform: translate3d(2px, -3px, 0) rotate(-1.5deg);
+  }
+  40%, 55% {
+    transform: translate3d(14px, -2px, 0) rotate(0deg);
+  }
+  60%, 78% {
+    transform: translate3d(16px, 3px, 0) rotate(2deg);
+  }
+  85%, 95% {
+    transform: translate3d(8px, -1px, 0) rotate(-1deg);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+}
+
+.animate-cinema-deer {
+  animation: cinemaDeerStory 16s ease-in-out infinite;
+}
+
+@keyframes cinemaDeerHead {
+  0%, 15% {
+    transform: rotate(18deg) translate(2px, 3px);
+  }
+  22%, 35% {
+    transform: rotate(-12deg) translate(-1px, -2px);
+  }
+  42%, 55% {
+    transform: rotate(0deg);
+  }
+  62%, 78% {
+    transform: rotate(24deg) translate(3px, 4px);
+  }
+  85%, 95% {
+    transform: rotate(-8deg);
+  }
+  100% {
+    transform: rotate(18deg) translate(2px, 3px);
+  }
+}
+
+.animate-cinema-deer-head {
+  transform-origin: 29px 15px;
+  animation: cinemaDeerHead 16s ease-in-out infinite;
+}
+
+@keyframes cinemaDeerTail {
+  0%, 18%, 42%, 60%, 100% {
+    transform: rotate(0deg);
+  }
+  22%, 26% {
+    transform: rotate(25deg);
+  }
+  24%, 28% {
+    transform: rotate(-15deg);
+  }
+  84%, 88% {
+    transform: rotate(22deg);
+  }
+}
+
+.animate-cinema-deer-tail {
+  transform-origin: 10px 22px;
+  animation: cinemaDeerTail 16s ease-in-out infinite;
+}
+
+/* 6. Walking Traveler on Garden Path */
+@keyframes cinemaTravelerWalk {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(22px);
+  }
+}
+
+.animate-cinema-traveler {
+  animation: cinemaTravelerWalk 20s ease-in-out infinite;
+}
+
+@keyframes cinemaStaffTap {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-6deg) translateY(-2px);
+  }
+  50% {
+    transform: rotate(4deg) translateY(0);
+  }
+  75% {
+    transform: rotate(-4deg) translateY(-1px);
+  }
+}
+
+.animate-cinema-staff {
+  transform-origin: 2px 8px;
+  animation: cinemaStaffTap 1.8s ease-in-out infinite;
+}
+
+/* 7. Gentle Wind Swaying Pine and Willow Grove */
+@keyframes cinemaTreeSway {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(1.8deg) skewX(0.8deg);
+  }
+}
+
+.animate-cinema-tree-sway {
+  transform-origin: 120px 200px;
+  animation: cinemaTreeSway 8s ease-in-out infinite;
+}
+
+/* 8. Tea Pagoda Lantern Sway & Warm Candlelight Flicker */
+@keyframes cinemaLanternSway {
+  0%, 100% {
+    transform: rotate(-4deg);
+    filter: drop-shadow(0 0 6px rgba(212, 175, 55, 0.45));
+  }
+  50% {
+    transform: rotate(4deg);
+    filter: drop-shadow(0 0 12px rgba(243, 219, 157, 0.85));
+  }
+}
+
+.animate-cinema-lantern {
+  transform-origin: 0 0;
+  animation: cinemaLanternSway 4.5s ease-in-out infinite;
+}
+
+/* 9. Incense / Tea Steam Curling from Pagoda Balustrade */
+@keyframes cinemaSmokeCurl {
+  0% {
+    transform: translate3d(0, 0, 0) scale(0.8);
+    opacity: 0;
+  }
+  25% {
+    opacity: 0.65;
+  }
+  60% {
+    transform: translate3d(8px, -22px, 0) scale(1.4);
+    opacity: 0.45;
+  }
+  100% {
+    transform: translate3d(16px, -45px, 0) scale(2.2);
+    opacity: 0;
+  }
+}
+
+.animate-cinema-smoke {
+  animation: cinemaSmokeCurl 5s ease-out infinite;
+}
+
+.animate-cinema-smoke-delayed {
+  animation: cinemaSmokeCurl 5s ease-out 2.5s infinite;
+}
+
+/* 10. Water Ripple Wave Expansion */
+@keyframes cinemaRippleExpand {
+  0% {
+    transform: scale(0.6);
+    opacity: 0.8;
+    stroke-width: 1.4px;
+  }
+  100% {
+    transform: scale(2.2);
+    opacity: 0;
+    stroke-width: 0.3px;
+  }
+}
+
+.animate-cinema-ripple {
+  transform-origin: center;
+  animation: cinemaRippleExpand 4s ease-out infinite;
+}
+
+.animate-cinema-ripple-delayed {
+  transform-origin: center;
+  animation: cinemaRippleExpand 4s ease-out 2s infinite;
+}
+
+/* Koi fish swimming in river */
+@keyframes koiSwimLoop {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  25% {
+    transform: translate(35px, 8px) rotate(8deg);
+  }
+  50% {
+    transform: translate(75px, -6px) rotate(-6deg);
+  }
+  75% {
+    transform: translate(110px, 10px) rotate(10deg);
+  }
+  100% {
+    transform: translate(150px, 0) rotate(0deg);
+  }
+}
+
+@keyframes koiTailUndulate {
+  0%, 100% {
+    transform: rotate(-14deg);
+  }
+  50% {
+    transform: rotate(14deg);
+  }
+}
+
+.animate-koi-swim {
+  animation: koiSwimLoop 18s ease-in-out infinite alternate;
+}
+
+.animate-koi-swim-reverse {
+  animation: koiSwimLoop 22s ease-in-out 4s infinite alternate-reverse;
+}
+
+.animate-koi-tail {
+  transform-origin: 20% 50%;
+  animation: koiTailUndulate 1.2s ease-in-out infinite;
+}
+
+/* Drifting blossom petals */
+@keyframes blossomDrift {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.85;
+  }
+  90% {
+    opacity: 0.65;
+  }
+  100% {
+    transform: translate(-180px, 140px) rotate(420deg);
+    opacity: 0;
+  }
+}
+
+.animate-blossom-1 {
+  animation: blossomDrift 14s linear infinite;
+}
+
+.animate-blossom-2 {
+  animation: blossomDrift 18s linear 5s infinite;
+}
+
+.animate-blossom-3 {
+  animation: blossomDrift 16s linear 9s infinite;
+}
+
+/* ============================================================
+   CELESTIAL SUN & MOON + CHERRY BLOSSOM (SAKURA) WIND FLURRY
+   ============================================================ */
+
+/* 1. Golden Sunrise Sun Corona Breathing */
+@keyframes sunCoronaPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.85;
+    filter: drop-shadow(0 0 16px rgba(245, 158, 11, 0.45));
+  }
+  50% {
+    transform: scale(1.06);
+    opacity: 1;
+    filter: drop-shadow(0 0 28px rgba(251, 191, 36, 0.75));
+  }
+}
+
+.animate-sun-corona {
+  transform-origin: 45px 45px;
+  animation: sunCoronaPulse 6s ease-in-out infinite;
+}
+
+/* 2. Silver & Sapphire Moon Lunar Halo Breathing */
+@keyframes moonHaloPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.9;
+    filter: drop-shadow(0 0 18px rgba(56, 189, 248, 0.5));
+  }
+  50% {
+    transform: scale(1.08);
+    opacity: 1;
+    filter: drop-shadow(0 0 32px rgba(56, 189, 248, 0.85));
+  }
+}
+
+.animate-moon-halo {
+  transform-origin: 45px 45px;
+  animation: moonHaloPulse 7s ease-in-out infinite;
+}
+
+/* 3. Cherry Blossom Tree Branch Sway */
+@keyframes sakuraTreeBreeze {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(-2.2deg) skewX(-1deg);
+  }
+}
+
+.animate-sakura-tree {
+  transform-origin: 45px 190px;
+  animation: sakuraTreeBreeze 9s ease-in-out infinite;
+}
+
+/* 4. Bioluminescent Sparkle Blue Twinkle in Dark Mode */
+@keyframes sakuraSparkleTwinkle {
+  0%, 100% {
+    filter: drop-shadow(0 0 4px rgba(56, 189, 248, 0.6)) brightness(1);
+  }
+  50% {
+    filter: drop-shadow(0 0 14px rgba(56, 189, 248, 1)) brightness(1.35);
+  }
+}
+
+html.dark .sakura-flower-glow {
+  animation: sakuraSparkleTwinkle 4s ease-in-out infinite;
+}
+
+/* 5. Flower Colors: Rose Pink in Bright Mode, Bioluminescent Sparkle Blue in Dark Mode */
+.sakura-petal-color {
+  color: #ff758f;
+  fill: #ff758f;
+  transition: color 0.6s ease, fill 0.6s ease, filter 0.6s ease;
+}
+
+html.dark .sakura-petal-color {
+  color: #38bdf8 !important;
+  fill: #38bdf8 !important;
+  filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.95)) !important;
+}
+
+.sakura-petal-soft {
+  color: #ff8fa3;
+  fill: #ff8fa3;
+  transition: color 0.6s ease, fill 0.6s ease, filter 0.6s ease;
+}
+
+html.dark .sakura-petal-soft {
+  color: #60a5fa !important;
+  fill: #60a5fa !important;
+  filter: drop-shadow(0 0 10px rgba(96, 165, 250, 0.9)) !important;
+}
+
+.sakura-petal-light {
+  color: #ffb3c1;
+  fill: #ffb3c1;
+  transition: color 0.6s ease, fill 0.6s ease, filter 0.6s ease;
+}
+
+html.dark .sakura-petal-light {
+  color: #93c5fd !important;
+  fill: #93c5fd !important;
+  filter: drop-shadow(0 0 7px rgba(147, 197, 253, 0.85)) !important;
+}
+
+.sakura-stamen {
+  fill: #fffbeb;
+  transition: fill 0.6s ease;
+}
+
+html.dark .sakura-stamen {
+  fill: #ffffff !important;
+  filter: drop-shadow(0 0 4px #38bdf8) !important;
+}
+
+/* 6. Windblown Cherry Blossom Petals Spreading Across Canvas */
+@keyframes windPetalSweep1 {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(0deg) scale(0.6);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.95;
+  }
+  35% {
+    transform: translate3d(-300px, 30px, 0) rotate(-160deg) scale(0.95);
+  }
+  70% {
+    transform: translate3d(-680px, -25px, 0) rotate(-340deg) scale(0.9);
+  }
+  90% {
+    opacity: 0.85;
+  }
+  100% {
+    transform: translate3d(-980px, 40px, 0) rotate(-520deg) scale(0.5);
+    opacity: 0;
+  }
+}
+
+@keyframes windPetalSweep2 {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(0deg) scale(0.7);
+    opacity: 0;
+  }
+  12% {
+    opacity: 0.95;
+  }
+  40% {
+    transform: translate3d(-240px, -40px, 0) rotate(140deg) scale(1);
+  }
+  75% {
+    transform: translate3d(-560px, 35px, 0) rotate(290deg) scale(0.85);
+  }
+  92% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translate3d(-880px, -15px, 0) rotate(460deg) scale(0.6);
+    opacity: 0;
+  }
+}
+
+@keyframes windPetalSweep3 {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(0deg) scale(0.5);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.9;
+  }
+  45% {
+    transform: translate3d(-380px, -15px, 0) rotate(-180deg) scale(0.85);
+  }
+  75% {
+    transform: translate3d(-720px, 20px, 0) rotate(-360deg) scale(0.8);
+  }
+  95% {
+    opacity: 0.75;
+  }
+  100% {
+    transform: translate3d(-1050px, -30px, 0) rotate(-540deg) scale(0.5);
+    opacity: 0;
+  }
+}
+
+@keyframes windPetalSweep4 {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(0deg) scale(0.8);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.95;
+  }
+  50% {
+    transform: translate3d(-340px, 45px, 0) rotate(190deg) scale(1.05);
+  }
+  80% {
+    transform: translate3d(-640px, -10px, 0) rotate(370deg) scale(0.9);
+  }
+  95% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translate3d(-920px, 50px, 0) rotate(520deg) scale(0.6);
+    opacity: 0;
+  }
+}
+
+.animate-wind-petal-1 {
+  animation: windPetalSweep1 16s cubic-bezier(0.25, 0.8, 0.45, 1) infinite;
+}
+
+.animate-wind-petal-2 {
+  animation: windPetalSweep2 19s cubic-bezier(0.25, 0.8, 0.45, 1) 3s infinite;
+}
+
+.animate-wind-petal-3 {
+  animation: windPetalSweep3 22s cubic-bezier(0.25, 0.8, 0.45, 1) 7s infinite;
+}
+
+.animate-wind-petal-4 {
+  animation: windPetalSweep4 17s cubic-bezier(0.25, 0.8, 0.45, 1) 11s infinite;
+}
+
+.animate-wind-petal-5 {
+  animation: windPetalSweep1 20s cubic-bezier(0.25, 0.8, 0.45, 1) 5.5s infinite;
+}
+
+.animate-wind-petal-6 {
+  animation: windPetalSweep2 18s cubic-bezier(0.25, 0.8, 0.45, 1) 9s infinite;
+}
+
+/* =========================================================================
+   STRICT HIGH CONTRAST PROTECTION RULES (Doctor CTA & Map Overlay)
+   ========================================================================= */
+
+/* Doctor Consultation CTA Button - High contrast champagne gold */
+.doctor-cta-btn {
+  background: linear-gradient(135deg, #d4af37 0%, #f3db9d 50%, #aa8021 100%) !important;
+  color: #14100e !important;
+  border: 1px solid rgba(212, 175, 55, 0.4) !important;
+}
+.doctor-cta-btn * {
+  color: #14100e !important;
+  fill: #14100e !important;
+}
+.doctor-cta-btn:hover {
+  background: linear-gradient(135deg, #e0be48 0%, #fae8bd 50%, #b8860b 100%) !important;
+}
+
+/* Map Overlay Pin Card - High contrast in both themes */
+.map-overlay-card {
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+}
+html.light .map-overlay-card {
+  background-color: rgba(255, 255, 255, 0.96) !important;
+  border-color: rgba(140, 96, 10, 0.25) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12) !important;
+}
+html.light .map-overlay-card .map-card-title {
+  color: #14100e !important;
+}
+html.light .map-overlay-card .map-card-subtitle {
+  color: #52473c !important;
+}
+
+html.dark .map-overlay-card {
+  background-color: rgba(18, 15, 13, 0.94) !important;
+  border-color: rgba(212, 175, 55, 0.4) !important;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.7) !important;
+}
+html.dark .map-overlay-card .map-card-title {
+  color: #f5eedb !important;
+}
+html.dark .map-overlay-card .map-card-subtitle {
+  color: #baa995 !important;
+}
+
+/* =========================================================================
+   CART DRAWER & MODAL ISOLATION RULES
+   ========================================================================= */
+
+/* Hide floating elements when cart drawer or modal is active */
+body.cart-open .floating-dock,
+body.cart-open .bottom-info-bar,
+body.cart-open .mobile-nav-bar {
+  opacity: 0 !important;
+  pointer-events: none !important;
+  transform: translateX(120px) !important;
+  transition: opacity 0.25s ease, transform 0.25s ease !important;
+}
+
+/* Ensure cart drawer panel has high contrast and clean background in both themes */
+.aesthetic-cart-drawer {
+  box-shadow: -15px 0 50px rgba(0, 0, 0, 0.45) !important;
+}
+html.light .aesthetic-cart-drawer {
+  background-color: #faf8f5 !important;
+  border-left-color: rgba(140, 96, 10, 0.2) !important;
+}
+html.dark .aesthetic-cart-drawer {
+  background-color: #120f0d !important;
+  border-left-color: rgba(212, 175, 55, 0.35) !important;
+}
+
+/* =========================================================================
+   LUXURY HORIZONTAL CARD SCROLL CONTAINER (SERVICES SECTION)
+   ========================================================================= */
+.horizontal-scroll-container {
+  display: flex;
+  overflow-x: auto;
+  gap: 1.5rem;
+  padding-bottom: 0.5rem;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+.horizontal-scroll-container::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+/* =========================================================================
+   MOTION SPRING PRESS & FOCUS-VISIBLE STYLING (TOUCH & CLICK HARMONY)
+   ========================================================================= */
+.press-target,
+.press-box {
+  cursor: pointer;
+  will-change: transform;
+}
+
+button,
+a,
+[role="button"],
+.cursor-pointer,
+.press-target,
+.press-box {
+  transform-origin: center center;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Luxury Champagne Gold Focus-Visible outline matching user source code */
+button:focus-visible,
+a:focus-visible,
+[role="button"]:focus-visible,
+summary:focus-visible,
+.press-target:focus-visible,
+.press-box:focus-visible {
+  outline: 2px solid #d4af37 !important;
+  outline-offset: 2px !important;
+}
