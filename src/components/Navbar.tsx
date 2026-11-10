@@ -78,6 +78,18 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [pathname]);
 
+  // Prevent background page scrolling when mobile drawer menu is open
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileMenuOpen]);
+
   // Smooth Lenis inertial scroll with offset for floating navbar & cross-page routing
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
@@ -113,8 +125,8 @@ export default function Navbar() {
   return (
     <>
       {/* Floating Navbar Container: Completely transparent, no background, no border */}
-      <div className="fixed top-0 left-0 right-0 z-50 pointer-events-none transition-all duration-300 px-3 sm:px-6 pt-3 sm:pt-4">
-        <header className="pointer-events-auto max-w-7xl mx-auto transition-all duration-300 relative flex items-center justify-between gap-2 sm:gap-4 px-2 sm:px-4 py-2 bg-transparent border-0 shadow-none">
+      <div className="fixed top-0 left-0 right-0 z-50 pointer-events-none transition-all duration-300 px-2 min-[360px]:px-3 sm:px-6 pt-2.5 min-[360px]:pt-3 sm:pt-4">
+        <header className="pointer-events-auto max-w-7xl mx-auto transition-all duration-300 relative flex items-center justify-between gap-1.5 min-[360px]:gap-2 sm:gap-4 px-1.5 min-[360px]:px-2 sm:px-4 py-2 bg-transparent border-0 shadow-none">
           {/* Left: Brand Logo Lockup matching ArtVista reference */}
           <BrandLogo isScrolled={isScrolled} onClick={(e) => handleNavClick(e, "#hero")} />
 
@@ -148,18 +160,18 @@ export default function Navbar() {
             <ThemeToggle variant="circular" className="ml-0.5" />
           </div>
 
-          {/* Right Action Icons (3 Circular Buttons: Bell, WhatsApp, Phone - Exact Match to Screenshot) */}
-          <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
+          {/* Right Action Icons: Equal dimensions, perfectly aligned circular backgrounds across all mobile viewports */}
+          <div className="flex items-center gap-1 min-[360px]:gap-1.5 sm:gap-2 shrink-0">
             {/* 1. Offers & Consultation Booking Bell */}
             <a
               href="#booking"
               onClick={(e) => handleNavClick(e, "#booking")}
-              className="relative w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white dark:bg-[#1a1512] border border-black/10 dark:border-white/10 hover:border-[#d4af37] flex items-center justify-center text-[#1c1511] dark:text-[#f5ecd8] hover:text-[#d4af37] shadow-sm hover:scale-105 active:scale-95 transition-all"
+              className="relative w-8 h-8 min-[390px]:w-9 min-[390px]:h-9 sm:w-10 sm:h-10 rounded-full bg-white dark:bg-[#1a1512] border border-black/10 dark:border-white/10 hover:border-[#d4af37] flex items-center justify-center text-[#1c1511] dark:text-[#f5ecd8] hover:text-[#d4af37] shadow-sm hover:scale-105 active:scale-95 transition-all shrink-0"
               title="Special Offers & Appointment Booking"
               aria-label="Offers and Appointment Booking"
             >
-              <Bell className="w-4 h-4 text-[#2b221a] dark:text-[#f5ecd8]" />
-              <span className="absolute top-2 right-2 w-2 h-2 rounded-full bg-[#d4af37] ring-2 ring-white dark:ring-[#1a1512] animate-pulse" />
+              <Bell className="w-3.5 h-3.5 min-[390px]:w-4 min-[390px]:h-4 text-[#2b221a] dark:text-[#f5ecd8]" />
+              <span className="absolute top-1.5 right-1.5 min-[390px]:top-2 min-[390px]:right-2 w-2 h-2 rounded-full bg-[#d4af37] ring-2 ring-white dark:ring-[#1a1512] animate-pulse" />
             </a>
 
             {/* 2. Direct WhatsApp Message Bubble */}
@@ -167,47 +179,53 @@ export default function Navbar() {
               href={buildWhatsAppLink({})}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white dark:bg-[#1a1512] border border-black/10 dark:border-white/10 hover:border-[#25d366] flex items-center justify-center text-[#25d366] hover:bg-[#25d366]/10 shadow-sm hover:scale-105 active:scale-95 transition-all"
+              className="w-8 h-8 min-[390px]:w-9 min-[390px]:h-9 sm:w-10 sm:h-10 rounded-full bg-white dark:bg-[#1a1512] border border-black/10 dark:border-white/10 hover:border-[#25d366] flex items-center justify-center text-[#25d366] hover:bg-[#25d366]/10 shadow-sm hover:scale-105 active:scale-95 transition-all shrink-0"
               title="Chat with Clinical Coordinator on WhatsApp"
               aria-label="Chat with Clinical Coordinator on WhatsApp"
             >
-              <MessageSquare className="w-4 h-4 text-[#25d366]" />
+              <MessageSquare className="w-3.5 h-3.5 min-[390px]:w-4 min-[390px]:h-4 text-[#25d366]" />
             </a>
 
             {/* 3. Direct Phone Call */}
             <a
               href={`tel:${CLINIC_INFO.phoneDigits}`}
-              className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white dark:bg-[#1a1512] border border-black/10 dark:border-white/10 hover:border-[#d4af37] flex items-center justify-center text-[#1c1511] dark:text-[#f5ecd8] hover:text-[#d4af37] hover:bg-[#d4af37]/10 shadow-sm hover:scale-105 active:scale-95 transition-all"
+              className="w-8 h-8 min-[390px]:w-9 min-[390px]:h-9 sm:w-10 sm:h-10 rounded-full bg-white dark:bg-[#1a1512] border border-black/10 dark:border-white/10 hover:border-[#d4af37] flex items-center justify-center text-[#1c1511] dark:text-[#f5ecd8] hover:text-[#d4af37] hover:bg-[#d4af37]/10 shadow-sm hover:scale-105 active:scale-95 transition-all shrink-0"
               title={`Call Reception: ${CLINIC_INFO.phonePrimary}`}
               aria-label="Call Reception"
             >
-              <Phone className="w-4 h-4 text-[#2b221a] dark:text-[#f5ecd8]" />
+              <Phone className="w-3.5 h-3.5 min-[390px]:w-4 min-[390px]:h-4 text-[#2b221a] dark:text-[#f5ecd8]" />
             </a>
 
-            {/* Mobile View: Theme Toggle + Menu Button */}
-            <div className="flex lg:hidden items-center gap-1.5 ml-0.5">
+            {/* 4. Single Theme Toggle (Visible only on mobile header; on lg, embedded inside nav track) */}
+            <div className="flex lg:hidden items-center shrink-0">
               <ThemeToggle variant="circular" />
-              <button
-                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="w-9 h-9 rounded-full bg-white dark:bg-[#1a1512] border border-black/10 dark:border-white/10 text-[#1c1511] dark:text-[#f5ecd8] hover:text-[#d4af37] flex items-center justify-center shadow-sm cursor-pointer"
-                aria-label="Toggle Navigation Menu"
-              >
-                {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-              </button>
             </div>
+
+            {/* 5. Mobile Menu Toggle Button */}
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="flex lg:hidden w-8 h-8 min-[390px]:w-9 min-[390px]:h-9 sm:w-10 sm:h-10 rounded-full bg-white dark:bg-[#1a1512] border border-black/10 dark:border-white/10 text-[#1c1511] dark:text-[#f5ecd8] hover:text-[#d4af37] items-center justify-center shadow-sm cursor-pointer shrink-0 active:scale-95 transition-all"
+              aria-label="Toggle Navigation Menu"
+            >
+              {mobileMenuOpen ? (
+                <X className="w-4 h-4 min-[390px]:w-5 min-[390px]:h-5" />
+              ) : (
+                <Menu className="w-4 h-4 min-[390px]:w-5 min-[390px]:h-5" />
+              )}
+            </button>
           </div>
         </header>
       </div>
 
       {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
-        <div className="fixed inset-0 z-40 bg-[#faf7f2]/98 dark:bg-black/95 backdrop-blur-2xl lg:hidden pt-24 px-6 pb-8 flex flex-col justify-between overflow-y-auto animate-in fade-in slide-in-from-top-6 duration-200">
+        <div className="fixed inset-0 z-40 bg-[#faf7f2]/98 dark:bg-[#0c0a09]/98 backdrop-blur-2xl lg:hidden pt-20 min-[380px]:pt-24 px-4 min-[380px]:px-6 pb-28 flex flex-col justify-between overflow-y-auto overscroll-contain animate-in fade-in slide-in-from-top-6 duration-200">
           <div className="space-y-4">
-            <div className="pb-4 border-b border-black/10 dark:border-[#d4af37]/20">
-              <span className="text-xs uppercase tracking-widest text-[#8c600a] dark:text-[#d4af37] font-bold">
+            <div className="pb-3 border-b border-black/10 dark:border-[#d4af37]/20">
+              <span className="text-[11px] min-[360px]:text-xs uppercase tracking-widest text-[#8c600a] dark:text-[#d4af37] font-bold">
                 S Fvour Navigation
               </span>
-              <p className="text-xs text-[#52473c] dark:text-[#a3947c] mt-0.5">
+              <p className="text-[11px] min-[360px]:text-xs text-[#52473c] dark:text-[#a3947c] mt-0.5">
                 Cosmetology & Aesthetic Skin Hub by M Scissors
               </p>
             </div>
@@ -220,7 +238,7 @@ export default function Navbar() {
                     key={link.id}
                     href={link.href}
                     onClick={(e) => handleNavClick(e, link.href)}
-                    className={`flex items-center justify-between text-sm py-2.5 px-3 rounded-xl transition-all ${
+                    className={`flex items-center justify-between text-xs min-[360px]:text-sm py-2.5 px-3 rounded-xl transition-all ${
                       isActive
                         ? "bg-[#14100e] text-white dark:bg-[#d4af37]/20 dark:text-[#f7e1b5] font-bold border border-black/10 dark:border-[#d4af37]/40 shadow-sm"
                         : "text-[#3d3227] dark:text-[#dcd1be] hover:bg-black/5 dark:hover:bg-white/5 hover:text-black dark:hover:text-white"
@@ -234,21 +252,21 @@ export default function Navbar() {
             </nav>
           </div>
 
-          <div className="pt-6 space-y-3 border-t border-black/10 dark:border-white/10">
+          <div className="pt-5 mt-6 space-y-2.5 border-t border-black/10 dark:border-white/10">
             <a
               href={`tel:${CLINIC_INFO.phoneDigits}`}
-              className="flex items-center justify-center gap-2 py-2.5 px-3 rounded-lg bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 text-[#14100e] dark:text-white font-medium text-xs hover:border-[#d4af37]"
+              className="flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 text-[#14100e] dark:text-white font-medium text-xs hover:border-[#d4af37] active:scale-[0.98] transition-all"
             >
               <Phone className="w-3.5 h-3.5 text-[#8c600a] dark:text-[#d4af37]" />
-              Direct Reception: {CLINIC_INFO.phonePrimary}
+              <span>Direct Reception: {CLINIC_INFO.phonePrimary}</span>
             </a>
             <a
               href={CLINIC_INFO.googleMapsUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-lg bg-[#ede7dc] dark:bg-white/5 border border-black/10 dark:border-white/10 text-[#704808] dark:text-[#f7e1b5] text-xs font-semibold"
+              className="flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl bg-[#ede7dc] dark:bg-white/5 border border-black/10 dark:border-white/10 text-[#704808] dark:text-[#f7e1b5] text-xs font-semibold hover:border-[#d4af37] active:scale-[0.98] transition-all"
             >
-              📍 Subhadra Mall, Baramati MIDC (Google Maps)
+              <span>📍 Subhadra Mall, Baramati MIDC (Google Maps)</span>
             </a>
 
             <a
@@ -256,10 +274,10 @@ export default function Navbar() {
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => setMobileMenuOpen(false)}
-              className="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-gradient-to-r from-[#d4af37] to-[#aa8021] text-black font-bold text-sm shadow-xl shadow-[#d4af37]/30"
+              className="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-gradient-to-r from-[#d4af37] to-[#aa8021] text-black font-bold text-xs min-[360px]:text-sm shadow-xl shadow-[#d4af37]/30 hover:opacity-95 active:scale-[0.98] transition-all cursor-pointer"
             >
               <MessageCircle className="w-4 h-4 fill-black" />
-              Book Consultation on WhatsApp
+              <span>Book Consultation on WhatsApp</span>
             </a>
 
             <div className="text-center pt-1">
@@ -270,7 +288,7 @@ export default function Navbar() {
                 className="text-xs text-[#8c600a] dark:text-[#d4af37] hover:underline inline-flex items-center gap-1.5"
               >
                 <InstagramIcon className="w-3.5 h-3.5" />
-                Follow {CLINIC_INFO.instagramHandle} on Instagram
+                <span>Follow {CLINIC_INFO.instagramHandle} on Instagram</span>
               </a>
             </div>
           </div>

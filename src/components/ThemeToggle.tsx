@@ -27,14 +27,14 @@ export default function ThemeToggle({
       <button
         onClick={toggleTheme}
         type="button"
-        className={`relative w-8 h-8 sm:w-8.5 sm:h-8.5 rounded-full flex items-center justify-center transition-all duration-300 shadow-sm hover:scale-110 active:scale-95 shrink-0 bg-white dark:bg-[#1a1512] border border-black/10 dark:border-white/15 hover:border-[#d4af37] text-[#1c1511] dark:text-[#f7e1b5] cursor-pointer ${className}`}
+        className={`relative w-8 h-8 min-[390px]:w-9 min-[390px]:h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center transition-all duration-300 shadow-sm hover:scale-105 active:scale-95 shrink-0 bg-white dark:bg-[#1a1512] border border-black/10 dark:border-white/10 hover:border-[#d4af37] text-[#1c1511] dark:text-[#f7e1b5] cursor-pointer ${className}`}
         title={isLight ? "Switch to Dark Mode" : "Switch to Bright Mode"}
         aria-label="Toggle Bright / Dark Mode"
       >
         {isLight ? (
-          <Moon className="w-4 h-4 text-[#2d3748] hover:text-[#d4af37] transition-colors" />
+          <Moon className="w-3.5 h-3.5 min-[390px]:w-4 min-[390px]:h-4 text-[#2d3748] dark:text-[#f5ecd8] hover:text-[#d4af37] transition-colors" />
         ) : (
-          <Sun className="w-4 h-4 text-[#f59e0b] hover:text-[#fcd34d] transition-colors" />
+          <Sun className="w-3.5 h-3.5 min-[390px]:w-4 min-[390px]:h-4 text-[#f59e0b] hover:text-[#fcd34d] transition-colors" />
         )}
       </button>
     );
