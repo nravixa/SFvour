@@ -31,7 +31,7 @@ export default function TestimonialsSection() {
   return (
     <section
       id="reviews"
-      className="py-24 sm:py-32 relative overflow-hidden bg-[#f8f6f0] dark:bg-[#0c0a09] transition-colors duration-500"
+      className="py-12 sm:py-32 relative overflow-hidden bg-[#f8f6f0] dark:bg-[#0c0a09] transition-colors duration-500"
     >
       {/* Ambient Lighting Accents */}
       <div className="absolute top-1/4 left-1/3 w-[550px] h-[550px] bg-[#d4af37]/06 rounded-full blur-[160px] pointer-events-none" />
@@ -39,26 +39,26 @@ export default function TestimonialsSection() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Editorial Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
-          <div className="mb-3">
-            <span className="text-xs uppercase tracking-[0.25em] font-bold text-[#8c600a] dark:text-[#d4af37]">
+        <div className="text-center max-w-3xl mx-auto mb-5 sm:mb-16">
+          <div className="mb-2 sm:mb-3">
+            <span className="text-[11px] sm:text-xs uppercase tracking-[0.25em] font-bold text-[#8c600a] dark:text-[#d4af37]">
               Unfiltered Patient Experiences
             </span>
           </div>
 
-          <h2 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-[#14100e] dark:text-white tracking-tight leading-[1.12]">
+          <h2 className="text-2xl sm:text-5xl lg:text-6xl font-extrabold text-[#14100e] dark:text-white tracking-tight leading-[1.15] sm:leading-[1.12]">
             Documented Results. <br />
             <span className="gold-gradient-text italic font-serif inline-block pr-2">
               5,000+ Glowing Confidences.
             </span>
           </h2>
 
-          <p className="mt-4 text-sm sm:text-base text-[#4a3f35] dark:text-[#baa995] leading-relaxed max-w-2xl mx-auto">
+          <p className="mt-2.5 sm:mt-4 text-xs sm:text-base text-[#4a3f35] dark:text-[#baa995] leading-relaxed max-w-2xl mx-auto">
             Candid, verified feedback from patients across Baramati, Pune, and Maharashtra experiencing board-certified dermatology, painless laser physics, and bespoke bridal artistry.
           </p>
 
           {/* Social Proof Trust Badge Lockup */}
-          <div className="mt-8 inline-flex flex-wrap items-center justify-center gap-3 sm:gap-6 px-5 py-2.5 rounded-2xl sm:rounded-full bg-black/[0.03] dark:bg-white/[0.04] border border-black/[0.06] dark:border-white/[0.08] backdrop-blur-md shadow-sm">
+          <div className="mt-4 sm:mt-8 inline-flex flex-wrap items-center justify-center gap-2 sm:gap-6 px-3.5 py-2 sm:px-5 sm:py-2.5 rounded-2xl sm:rounded-full bg-black/[0.03] dark:bg-white/[0.04] border border-black/[0.06] dark:border-white/[0.08] backdrop-blur-md shadow-sm">
             <div className="flex items-center gap-1.5">
               <div className="flex text-[#d4af37]">
                 {[...Array(5)].map((_, i) => (
@@ -70,23 +70,23 @@ export default function TestimonialsSection() {
 
             <span className="w-1 h-1 rounded-full bg-[#d4af37] hidden sm:inline" />
 
-            <span className="text-xs font-semibold text-[#52473c] dark:text-[#baa995]">
+            <span className="text-[11px] sm:text-xs font-semibold text-[#52473c] dark:text-[#baa995]">
               620+ Verified Patient Reviews on Google & Practo
             </span>
 
             <span className="w-1 h-1 rounded-full bg-[#d4af37] hidden sm:inline" />
 
-            <div className="flex items-center gap-1 text-xs font-bold text-[#8c600a] dark:text-[#f3db9d]">
+            <div className="flex items-center gap-1 text-[11px] sm:text-xs font-bold text-[#8c600a] dark:text-[#f3db9d]">
               <ShieldCheck className="w-3.5 h-3.5 text-[#25d366]" />
               <span>100% Doctor-Led Care</span>
             </div>
           </div>
 
           {/* Transparent Category Filter Capsule */}
-          <div className="mt-8 w-full overflow-x-auto scrollbar-none pb-2 pt-1 -mx-4 px-4 sm:mx-0 sm:px-0 flex justify-start sm:justify-center">
+          <div className="mt-3.5 sm:mt-8 w-full max-w-full overflow-x-auto scrollbar-none pb-1.5 pt-0.5 flex justify-start sm:justify-center touch-pan-x">
             <nav
               aria-label="Filter reviews by treatment category"
-              className="inline-flex items-center gap-1.5 p-1 rounded-full bg-black/[0.03] dark:bg-white/[0.04] border border-black/[0.06] dark:border-white/[0.08] backdrop-blur-md shadow-sm shrink-0"
+              className="inline-flex items-center gap-1 sm:gap-1.5 p-1 rounded-full bg-black/[0.03] dark:bg-white/[0.04] border border-black/[0.06] dark:border-white/[0.08] backdrop-blur-md shadow-sm shrink-0 min-w-max mr-3 sm:mr-0"
             >
               {CATEGORIES.map((cat) => {
                 const isActive = activeCategory === cat.id;
@@ -102,7 +102,7 @@ export default function TestimonialsSection() {
                         block: "nearest",
                       });
                     }}
-                    className={`relative px-4 py-2 rounded-full text-xs font-semibold transition-all duration-200 cursor-pointer whitespace-nowrap shrink-0 ${
+                    className={`relative px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full text-xs font-semibold transition-all duration-200 cursor-pointer whitespace-nowrap shrink-0 ${
                       isActive
                         ? "bg-gradient-to-r from-[#d4af37] to-[#b8860b] text-[#14100e] font-extrabold shadow-md shadow-[#d4af37]/20 scale-[1.02]"
                         : "text-[#52473c] dark:text-[#c9bfae] hover:text-black dark:hover:text-white hover:bg-black/[0.04] dark:hover:bg-white/[0.06]"
@@ -117,7 +117,7 @@ export default function TestimonialsSection() {
         </div>
 
         {/* Testimonials 3D Grid Showcase */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-8">
           {filteredTestimonials.map((t) => {
             const initials = t.name
               .split(" ")
@@ -129,7 +129,7 @@ export default function TestimonialsSection() {
 
             return (
               <TiltCard key={t.id} maxTilt={5} perspective={950}>
-                <div className="h-full rounded-3xl glass-card p-6 sm:p-7 border border-black/[0.08] dark:border-white/[0.08] hover:border-[#d4af37]/50 dark:hover:border-[#d4af37]/50 transition-all duration-300 flex flex-col justify-between group bg-white/95 dark:bg-[#14110f]/95 shadow-xl hover:shadow-2xl hover:shadow-[#d4af37]/10">
+                <div className="h-full rounded-3xl glass-card p-5 sm:p-7 border border-black/[0.08] dark:border-white/[0.08] hover:border-[#d4af37]/50 dark:hover:border-[#d4af37]/50 transition-all duration-300 flex flex-col justify-between group bg-white/95 dark:bg-[#14110f]/95 shadow-xl hover:shadow-2xl hover:shadow-[#d4af37]/10">
                   <div>
                     {/* Top Identity Lockup */}
                     <div className="flex items-start justify-between gap-3 mb-5">
@@ -218,7 +218,7 @@ export default function TestimonialsSection() {
         </div>
 
         {/* Bottom Google Review Callout Card */}
-        <div className="mt-14 p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-[#faf7f2] via-white to-[#faf7f2] dark:from-[#14100e] dark:via-[#1a1512] dark:to-[#14100e] border border-black/[0.08] dark:border-[#d4af37]/35 shadow-lg flex flex-col sm:flex-row items-center justify-between gap-6 text-center sm:text-left">
+        <div className="mt-8 sm:mt-14 p-5 sm:p-8 rounded-3xl bg-gradient-to-r from-[#faf7f2] via-white to-[#faf7f2] dark:from-[#14100e] dark:via-[#1a1512] dark:to-[#14100e] border border-black/[0.08] dark:border-[#d4af37]/35 shadow-lg flex flex-col sm:flex-row items-center justify-between gap-6 text-center sm:text-left">
           <div className="space-y-1">
             <div className="flex items-center justify-center sm:justify-start gap-2">
               <span className="w-2 h-2 rounded-full bg-[#25d366] animate-pulse" />
