@@ -203,25 +203,13 @@ export default function Navbar() {
       {mobileMenuOpen && (
         <div className="fixed inset-0 z-40 bg-[#faf7f2]/98 dark:bg-black/95 backdrop-blur-2xl lg:hidden pt-24 px-6 pb-8 flex flex-col justify-between overflow-y-auto animate-in fade-in slide-in-from-top-6 duration-200">
           <div className="space-y-4">
-            <div className="pb-4 border-b border-black/10 dark:border-[#d4af37]/20 flex items-center justify-between">
-              <div>
-                <span className="text-xs uppercase tracking-widest text-[#8c600a] dark:text-[#d4af37] font-bold">
-                  S Fvour Navigation
-                </span>
-                <p className="text-xs text-[#52473c] dark:text-[#a3947c] mt-0.5">
-                  Cosmetology & Aesthetic Skin Hub by M Scissors
-                </p>
-              </div>
-              <div className="flex items-center gap-2">
-                <ThemeToggle variant="circular" />
-                <button
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="p-2 text-black/60 dark:text-white/60 hover:text-black dark:hover:text-white"
-                  aria-label="Close menu"
-                >
-                  <X className="w-6 h-6" />
-                </button>
-              </div>
+            <div className="pb-4 border-b border-black/10 dark:border-[#d4af37]/20">
+              <span className="text-xs uppercase tracking-widest text-[#8c600a] dark:text-[#d4af37] font-bold">
+                S Fvour Navigation
+              </span>
+              <p className="text-xs text-[#52473c] dark:text-[#a3947c] mt-0.5">
+                Cosmetology & Aesthetic Skin Hub by M Scissors
+              </p>
             </div>
 
             <nav className="flex flex-col space-y-1">
