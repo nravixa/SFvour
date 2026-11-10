@@ -58,7 +58,7 @@ export default function TestimonialsSection() {
           </p>
 
           {/* Social Proof Trust Badge Lockup */}
-          <div className="mt-8 inline-flex flex-wrap items-center justify-center gap-3 sm:gap-6 px-5 py-2.5 rounded-full bg-black/[0.03] dark:bg-white/[0.04] border border-black/[0.06] dark:border-white/[0.08] backdrop-blur-md shadow-sm">
+          <div className="mt-8 inline-flex flex-wrap items-center justify-center gap-3 sm:gap-6 px-5 py-2.5 rounded-2xl sm:rounded-full bg-black/[0.03] dark:bg-white/[0.04] border border-black/[0.06] dark:border-white/[0.08] backdrop-blur-md shadow-sm">
             <div className="flex items-center gap-1.5">
               <div className="flex text-[#d4af37]">
                 {[...Array(5)].map((_, i) => (
@@ -83,10 +83,10 @@ export default function TestimonialsSection() {
           </div>
 
           {/* Transparent Category Filter Capsule */}
-          <div className="mt-8 flex justify-center overflow-x-auto scrollbar-none pb-1">
+          <div className="mt-8 w-full overflow-x-auto scrollbar-none pb-2 pt-1 -mx-4 px-4 sm:mx-0 sm:px-0 flex justify-start sm:justify-center">
             <nav
               aria-label="Filter reviews by treatment category"
-              className="inline-flex items-center gap-1 p-1 rounded-full bg-black/[0.03] dark:bg-white/[0.04] border border-black/[0.06] dark:border-white/[0.08] backdrop-blur-md shadow-sm"
+              className="inline-flex items-center gap-1.5 p-1 rounded-full bg-black/[0.03] dark:bg-white/[0.04] border border-black/[0.06] dark:border-white/[0.08] backdrop-blur-md shadow-sm shrink-0"
             >
               {CATEGORIES.map((cat) => {
                 const isActive = activeCategory === cat.id;
@@ -94,8 +94,15 @@ export default function TestimonialsSection() {
                   <button
                     key={cat.id}
                     type="button"
-                    onClick={() => setActiveCategory(cat.id)}
-                    className={`relative px-4 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 cursor-pointer whitespace-nowrap ${
+                    onClick={(e) => {
+                      setActiveCategory(cat.id);
+                      e.currentTarget.scrollIntoView({
+                        behavior: "smooth",
+                        inline: "center",
+                        block: "nearest",
+                      });
+                    }}
+                    className={`relative px-4 py-2 rounded-full text-xs font-semibold transition-all duration-200 cursor-pointer whitespace-nowrap shrink-0 ${
                       isActive
                         ? "bg-gradient-to-r from-[#d4af37] to-[#b8860b] text-[#14100e] font-extrabold shadow-md shadow-[#d4af37]/20 scale-[1.02]"
                         : "text-[#52473c] dark:text-[#c9bfae] hover:text-black dark:hover:text-white hover:bg-black/[0.04] dark:hover:bg-white/[0.06]"

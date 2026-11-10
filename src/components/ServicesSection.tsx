@@ -116,10 +116,10 @@ export default function ServicesSection() {
         </p>
 
         {/* Transparent Navigation Capsule for 9 Divisions */}
-        <div className="mt-7 max-w-full overflow-x-auto scrollbar-none pb-1 flex justify-center">
+        <div className="mt-7 w-full overflow-x-auto scrollbar-none pb-2 pt-1 -mx-4 px-4 sm:mx-0 sm:px-0 flex justify-start lg:justify-center">
           <nav
             aria-label="Divisions Navigation"
-            className="inline-flex items-center gap-0.5 p-1 rounded-full bg-black/[0.03] dark:bg-white/[0.04] border border-black/[0.06] dark:border-white/[0.08] backdrop-blur-md shadow-sm"
+            className="inline-flex items-center gap-0.5 p-1 rounded-full bg-black/[0.03] dark:bg-white/[0.04] border border-black/[0.06] dark:border-white/[0.08] backdrop-blur-md shadow-sm shrink-0"
           >
             {SERVICES.map((s, idx) => {
               const isActive = activeIndex === idx;
@@ -127,8 +127,15 @@ export default function ServicesSection() {
                 <button
                   key={s.id}
                   type="button"
-                  onClick={() => scrollToCard(idx)}
-                  className={`relative px-3.5 py-1.5 rounded-full text-xs font-mono font-bold tracking-tight transition-colors duration-200 cursor-pointer whitespace-nowrap ${
+                  onClick={(e) => {
+                    scrollToCard(idx);
+                    e.currentTarget.scrollIntoView({
+                      behavior: "smooth",
+                      inline: "center",
+                      block: "nearest",
+                    });
+                  }}
+                  className={`relative px-3.5 py-1.5 rounded-full text-xs font-mono font-bold tracking-tight transition-colors duration-200 cursor-pointer whitespace-nowrap shrink-0 ${
                     isActive
                       ? "text-[#14100e] font-extrabold"
                       : "text-[#52473c] dark:text-[#c9bfae] hover:text-black dark:hover:text-white"

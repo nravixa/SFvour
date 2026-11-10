@@ -1336,6 +1336,18 @@ html.dark .aesthetic-cart-drawer {
   -webkit-overflow-scrolling: touch;
 }
 
+.scrollbar-none,
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.scrollbar-none::-webkit-scrollbar,
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
 .horizontal-scroll-container::-webkit-scrollbar {
   display: none;
   width: 0;
